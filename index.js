@@ -1,70 +1,35 @@
-const { useState, useEffect } = React;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment Carousel</title>
+    <script type="module" src="./index.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module">
+        import React from "react";
+        import ReactDOM from "react-dom";
+        import EntertainmentCarousel from "./EntertainmentCarousel.js";
+        
+        ReactDOM.render(
+            <React.StrictMode>
+                <EntertainmentCarousel />
+            </React.StrictMode>,
+            document.getElementById("root")
+        );
+    </script>
+</body>
+</html>
 
+<script>
 const slides = [
-  {
-    image: "https://via.placeholder.com/1920x1080/ff7f7f/333333?text=Slide+1",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-  },
-  {
-    image: "https://via.placeholder.com/1920x1080/7f7fff/333333?text=Slide+2",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-  },
-  {
-    image: "https://via.placeholder.com/1920x1080/7fff7f/333333?text=Slide+3",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-  },
-  {
-    image: "https://via.placeholder.com/1920x1080/ffff7f/333333?text=Slide+4",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-  },
-  {
-    image: "https://via.placeholder.com/1920x1080/ff7fff/333333?text=Slide+5",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-  },
+    { image: "image1.jpg", audio: "audio1.mp3" },
+    { image: "image2.jpg", audio: "audio2.mp3" },
+    { image: "image3.jpg", audio: "audio3.mp3" },
+    { image: "image4.jpg", audio: "audio4.mp3" },
+    { image: "image5.jpg", audio: "audio5.mp3" },
 ];
-
-function EntertainmentCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useState(new Audio(slides[currentIndex].audio))[0];
-
-  useEffect(() => {
-    audioRef.src = slides[currentIndex].audio;
-    if (isPlaying) {
-      audioRef.play();
-    }
-    return () => {
-      audioRef.pause();
-    };
-  }, [currentIndex]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const togglePlay = () => {
-    if (isPlaying) {
-      audioRef.pause();
-    } else {
-      audioRef.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  return React.createElement("div", { className: "carousel-container" },
-    React.createElement("img", {
-      src: slides[currentIndex].image,
-      className: "carousel-image",
-    }),
-    React.createElement("button", { onClick: togglePlay }, isPlaying ? "Pause" : "Play")
-  );
-}
-
-// Render the app
-ReactDOM.render(
-  React.createElement(EntertainmentCarousel),
-  document.getElementById("root")
-);
+</script>
